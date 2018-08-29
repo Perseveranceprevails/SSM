@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BySelf_Day05/BySelf_Day05.iml" filepath="$PROJECT_DIR$/BySelf_Day05/BySelf_Day05.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Cache_Day06/Cache_Day06.iml" filepath="$PROJECT_DIR$/Cache_Day06/Cache_Day06.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ManyToMany_Day04/ManyToMany_Day04.iml" filepath="$PROJECT_DIR$/ManyToMany_Day04/ManyToMany_Day04.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ManyToOne_Day03/ManyToOne_Day03.iml" filepath="$PROJECT_DIR$/ManyToOne_Day03/ManyToOne_Day03.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MyBatis_Day01/MyBatis_Day01.iml" filepath="$PROJECT_DIR$/MyBatis_Day01/MyBatis_Day01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PageHelper_Day07/PageHelper_Day07.iml" filepath="$PROJECT_DIR$/PageHelper_Day07/PageHelper_Day07.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RelationShip_Day02/RelationShip_Day02.iml" filepath="$PROJECT_DIR$/RelationShip_Day02/RelationShip_Day02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SSM.iml" filepath="$PROJECT_DIR$/SSM.iml" />
+    </modules>
+  </component>
+</project>

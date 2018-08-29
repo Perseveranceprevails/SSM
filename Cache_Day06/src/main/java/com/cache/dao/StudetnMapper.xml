@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cache.dao.StudetnMapper">
+
+
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
+
+    <select id="findStudetnBySid" resultType="Student" useCache="true">
+        select sid,sname,age from Student
+        <where>
+            sid=#{???}
+        </where>
+    </select>
+
+    <update id="updateStudetnBySid" parameterType="int" flushCache="false">
+        update student set sname='花花'
+        <where>
+            sid=#{???}
+        </where>
+    </update>
+
+</mapper>

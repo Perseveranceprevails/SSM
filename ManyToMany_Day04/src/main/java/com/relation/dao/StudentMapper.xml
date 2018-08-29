@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.relation.dao.StudentMapper">
+
+
+    <!--根据学生Id查询学生信息-->
+    <select id="findStudentBySid" resultMap="StudentMap">
+        SELECT s.sid,s.sname,s.age,t.tid,t.tname
+        FROM student AS s,teacher AS t,middle AS m
+        WHERE s.sid=m.sid AND t.tid=m.tid AND s.sid=#{?}
+    </select>
+
+    <resultMap id="StudentMap" type="Student">
+        <id property="sid" column="sid"/>
+        <result property="sname" column="sname"/>
+        <collection property="teachers" ofType="Teacher">
+            <id property="tid" column="tid"/>
+            <result property="tname" column="tname"/>
+        </collection>
+    </resultMap>
+
+    <!--根据老师Id查找老师信息-->
+    <select id="findTeacherBySid" resultMap="TeacherMap">
+        SELECT t.tid,t.tname,s.sid,s.sname,s.age
+        FROM student AS s,teacher AS t, middle AS m
+        WHERE s.sid=m.sid AND t.tid=m.tid AND t.tid=#{?}
+    </select>
+
+    <resultMap id="TeacherMap" type="Teacher">
+        <id property="tid" column="tid"/>
+        <result property="tname" column="tname"/>
+        <collection property="students" ofType="Student">
+            <id property="sid" column="sid"/>
+            <result property="sname" column="sname"/>
+            <result property="age" column="age"/>
+        </collection>
+    </resultMap>
+
+</mapper>

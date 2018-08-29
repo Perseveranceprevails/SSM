@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.relation.dao.ProvincialMapper">
+
+    <!--根据ProvincalId查找ProvincalId对象-->
+    <select id="findProvincial" resultMap="ProvincialMap">
+        SELECT pid,pname,countryid FROM provincial
+        <where>
+            pid=#{???}
+        </where>
+    </select>
+
+    <!--根据countryid查找CountryId对象-->
+    <select id="findCountryByCountryId" resultType="Country">
+        SELECT cid,cname FROM country
+        <where>
+            cid=#{???}
+        </where>
+    </select>
+
+    <resultMap id="ProvincialMap" type="Provincial">
+        <id property="pid" column="pid"/>
+        <result property="pname" column="pname"/>
+        <result property="countryid" column="countryid"/>
+        <!--域属性-->
+        <association property="country" javaType="Country" select="findCountryByCountryId" column="countryid"/>
+    </resultMap>
+
+</mapper>

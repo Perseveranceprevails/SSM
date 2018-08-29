@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lucky.dao.UserMapper">
+
+    <sql id="findAll">
+        SELECT id,`name`,`password` FROM users
+    </sql>
+
+    <!--登录 -->
+    <select id="login" resultType="int">
+        SELECT COUNT(1) FROM users WHERE `name`=#{name} AND `password`=#{pwd}
+    </select>
+
+    <!--登录-->
+    <select id="login2" resultType="Users">
+        SELECT id FROM users WHERE `name`=#{0} AND `password`=#{1}
+    </select>
+
+    <!--查询单个 返回对象-->
+    <select id="findByCondition" resultType="Users">
+        <include refid="findAll"></include>
+        <where>
+            <if test="MyId !=null and MyId !='' ">
+                AND id=#{MyId}
+            </if>
+            <if test="MyName !=null and MyName !='' ">
+                AND `name` LIKE concat('%',#{MyName},'%')
+            </if>
+            <if test="MyPwd !=null and MyPwd !='' ">
+                AND `password`=#{MyPwd}
+            </if>
+        </where>
+    </select>
+
+    <!--查询所有-->
+    <select id="selectEach" resultMap="findResult">
+        <include refid="findAll"/>
+        where 1=1
+    </select>
+    <!--property=实体类中的属性名  column=数据库中的列名 -->
+    <resultMap id="findResult" type="Users">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="password" column="password"/>
+    </resultMap>
+
+    <!--根据条件删除-->
+   <delete id="deleteByCondition">
+       DELETE FROM users
+       <where>
+           <if test="id !=null and id!='' ">
+               AND id=#{id}
+           </if>
+           <if test="name !=null and name!=''">
+               AND name=#{name}
+           </if>
+           <if test="password !=null and password!=''">
+               AND password=#{password}
+           </if>
+       </where>
+   </delete>
+
+    <!--修改方法-->
+    <update id="update">
+        UPDATE users SET `name`=#{NewName} ,`PASSWORD`=#{NewPwd} WHERE id=#{OldId}
+    </update>
+
+
+    <!--添加方法-->
+    <insert id="insert">
+        <selectKey resultType="int" keyProperty="id" order="AFTER" >
+            SELECT @@identity
+        </selectKey>
+        INSERT INTO users(NAME,PASSWORD) VALUES(#{name},#{password});
+    </insert>
+
+
+    <!--动态sql where-if-->
+    <select id="dynamicSql" parameterType="Users" resultType="Users">
+        <include refid="findAll2"/>
+        <where>
+            <if test="name!=null and name!=''">
+                and name LIKE concat ('%',#{name},'%')
+            </if>
+            <if test="password!=null and password!=''">
+                and password=#{password}
+            </if>
+            and id=#{id}
+        </where>
+    </select>
+
+    <sql id="findAll2">
+        SELECT id,`name`,`password` FROM users
+    </sql>
+
+    <!--动态Sql set-if-->
+     <update id="updateBySet" parameterType="Users">
+        UPDATE users
+        <set>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="password!=null and password!=''">
+                password=#{password},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!--动态Sql select-Trim-if-->
+    <select id="selectByTrim" parameterType="Users" resultType="Users">
+        <include refid="findAll2"/>
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="name!=null and name!=''">
+                and name like concat ('%',#{name},'%')
+            </if>
+            <if test="password !=null and password!=''">
+                and password = #{password}
+            </if>
+        </trim>
+    </select>
+
+    <!--
+        Trim属性
+        prefix：需要添加的前缀
+        suffix：需要添加的后缀
+        prefixOverrides：需要删除的前缀  多个可用 | 隔开
+        suffixOverrides：需要删除的后缀
+    -->
+
+    <!--动态Sql update-Trim-if-->
+    <update id="updateByTrim" parameterType="Users">
+        UPDATE users
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name!=null and name!=''" >
+                name = #{name},
+            </if>
+            <if test="password!=null and password!=''">
+                password = #{password},
+            </if>
+        </trim>
+    </update>
+
+
+    <!--动态Sql-->
+    <select id="selectBychoose" parameterType="Users" resultType="Users">
+        <include refid="findAll2"/>
+        <where>
+            <choose>
+                <when test="name!=null and name!=''">
+                    AND name like concat ('%',#{name},'%')
+                </when>
+                <when test="password!=null and password">
+                    and password=#{password}
+                </when>
+                <otherwise>
+                    id=#{id}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+
+    <!--动态Sql  遍历数组-->
+    <select id="selectByArray" resultType="Users">
+        <include refid="findAll2"/>
+        <where>
+            <if test="array.length>0">
+                id in 
+                <foreach collection="array" open="(" close=")" separator="," item="id">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+
+    <!--动态Sql 遍历集合-->
+    <select id="selectByList" parameterType="Integer" resultType="Users">
+        <include refid="findAll2"/>
+        <where>
+            id IN
+            <if test="list.size>0">
+                <foreach collection="list" open="(" separator="," close=")" item="item">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <!--动态Sql 遍历对象集合-->
+    <select id="selectByListUsers" parameterType="Users" resultType="Users">
+        <include refid="findAll2"/>
+        <where>
+            id IN
+            <if test="list.size>0">
+                <foreach collection="list" open="(" separator="," close=")" item="users">
+                    #{users.id}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <!--动态Sql  添加遍历对象集合-->
+    <insert id="insertByListUsers" parameterType="Users">
+        INSERT INTO users(`name`,`password`) VALUE
+            <foreach collection="list" separator="," item="user">
+                (#{user.name},#{user.password})
+            </foreach>
+
+    </insert>
+
+    <!--动态Sql  查找遍历Map-->
+    <select id="selectByMap" resultType="Users">
+        <include refid="findAll2"/>
+        <where>
+            id IN
+            <if test="myMap.keys.size>0">
+                <foreach collection="myMap.keys" open="(" separator="," close=")" item="mykey">
+                    #{myMap[${mykey}]}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <!--动态Sql 查找遍历对象Map-->
+    <select id="selectByMapUsers" resultType="Users">
+        <include refid="findAll2"/>
+        <where>
+            id IN
+            <if test="myMap.keys.size>0">
+                <foreach collection="myMap.keys" open="(" separator="," close=")" item="mykey">
+                    #{myMap[${mykey}].id}
+                </foreach>
+            </if>
+        </where>
+    </select>
+</mapper>

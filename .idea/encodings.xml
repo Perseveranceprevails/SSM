@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/BySelf_Day05" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Cache_Day06" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ManyToMany_Day04" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ManyToOne_Day03" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/MyBatis_Day01" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/PageHelper_Day07" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/RelationShip_Day02" charset="UTF-8" />
+  </component>
+</project>

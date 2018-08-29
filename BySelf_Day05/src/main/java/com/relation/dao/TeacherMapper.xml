@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.relation.dao.TeacherMapper">
+
+
+    <!--
+    根据导师Id查找导师下所有的老师
+    在根据老师Id查找老师下的所有老师
+    -->
+    <select id="findTeacherBytid" resultMap="TeacherMapper">
+        SELECT id,tname,tid FROM teacher
+        <where>
+            tid=#{???}
+        </where>
+    </select>
+
+    <resultMap id="TeacherMapper" type="Teacher">
+        <id property="id" column="id"/>
+        <result property="tname" column="tname"/>
+        <result property="tid" column="tid"/>
+        <collection property="teachers" ofType="Teacher" select="findTeacherBytid"  column="id"/>
+    </resultMap>
+</mapper>

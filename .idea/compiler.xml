@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="BySelf_Day05" />
+        <module name="Cache_Day06" />
+        <module name="ManyToMany_Day04" />
+        <module name="ManyToOne_Day03" />
+        <module name="MyBatis_Day01" />
+        <module name="PageHelper_Day07" />
+        <module name="RelationShip_Day02" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="BySelf_Day05" target="1.7" />
+      <module name="Cache_Day06" target="1.7" />
+      <module name="ManyToMany_Day04" target="1.7" />
+      <module name="ManyToOne_Day03" target="1.7" />
+      <module name="MyBatis_Day01" target="1.7" />
+      <module name="PageHelper_Day07" target="1.7" />
+      <module name="RelationShip_Day02" target="1.7" />
+      <module name="SSM" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
